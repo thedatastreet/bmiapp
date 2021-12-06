@@ -1,0 +1,111 @@
+{% extends "material/base.html" %}
+{% block content %}
+<div class="showcase container blue ">
+    <div class="row">
+        <div class="col 12 m10 offset-ml center white-text">
+            <h2>Insurance Quote Predictor </h2>
+            
+            <a href="{{url_for('index')}}" class="btn btn-small red lighten-1 white-text waves-effect waves-dark" >Refresh</a>
+            <a href="{{url_for('index')}}" class="btn btn-small grey lighten-4 red-text waves-effect waves-dark " >Home</a>
+            
+        </div>
+
+    </div>
+</div>
+<section class="section section-input">
+        <div class="container">
+          <div class="row">
+              <div class="col s12 m4">
+              <div class="card-panel grey lighten-4 grey-text text-darken-4 z-depth-0">
+
+                <form action="{{ url_for('analyze')}}" method="POST">
+
+                  <div class="form-group">
+                    <label for="Ins_Age"><p class="font-weight-bold">Age of Applicant</p></label>
+                    <input type="text" name="Ins_Age">
+                  </div>
+                  
+                  <div class="input-field">
+                    <select id="role" name="Ins_Gender">
+                      <option value="" disabled selected>Select Gender</option>
+                      <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                  </select>
+
+                  </div>
+
+                  <div class="form-group">
+                    <label for="Wt"><p class="font-weight-bold">Weight of Applicant in Kgs</p></label>
+                    <input type="text" name="Wt">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="meters"><p class="font-weight-bold">Height of Applicant in Meters</p></label>
+                    <input type="text" name="meters">
+                  </div>
+
+
+                  <input type="submit" value="Predict" class="btn btn-small blue darken-2 btn-extend">
+                  <input type="reset" value="Clear" class="btn btn-small red lighten-1 btn-extend">
+                </form>
+              </div>
+            </div>
+
+        <div class="col s12 m4 offers">
+
+            <div class="collection" role="alert">
+              <p  class="collection-item active blue darken-1"> <b>Applicant Details</b>  </p>
+            </div> 
+            <div class="card-panel grey lighten-4 grey-text text-darken-4 z-depth-0">
+            <p><b>Age:</b> {{ Ins_Age }}</p>
+            <p><b>Gender:</b> {{ Ins_Gender }}</p>
+            <p><b>Weight in Kgs:</b> {{ Wt}} </p>
+            <p><b>Height in meters:</b> {{ meters}}</p>
+            </div>
+
+            <div class="card-panel grey lighten-4 grey-text text-darken-4 z-depth-0">
+                <p><b>Computed BMI of Applicant: {{ BMI}}</b></p>
+            </div>
+        </div>
+                     
+
+    
+             <div class="col s12 m4 offers">
+
+                  <div class="collection" role="alert">
+                    <p  class="collection-item active blue darken-1"> <b>Predicted Insurance Quote</b>  </p>
+                </div>       				
+                <div class="card-panel grey lighten-4 grey-text text-darken-4 z-depth-0">
+                   <p><b>Quote&nbsp;&nbsp;&nbsp;&nbsp;:</b> {{ quote }}</p>
+                   <p><b>Discount:</b> {{ discount }}</p>
+                   <p><b>Total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{ total }}</b></p>
+                   <p><b>Message&nbsp;:</b> {{ message }}</p>
+                </div>
+              
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+
+      {% endblock%}
+
+      {% block scripts %}
+      {{super()}}
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+       <!-- Compiled and minified JavaScript -->
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+
+      <script>
+          // Or with jQuery
+      
+        $(document).ready(function(){
+          $('select').formSelect();
+        });
+      </script>
+      
+      {% endblock %}
